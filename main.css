@@ -132,4 +132,12 @@ a.dropbox{
 .blue {
     color: blue;
 }
+
+.ancestors * { 
+    display: block;
+    border: 2px solid darkgreen;
+    color: darkgreen;
+    padding: 5px;
+    margin: 15px;
+}
 /*---*/

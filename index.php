@@ -33,6 +33,29 @@
 <button id="btn1">Show Old/New Text</button>
 <button id="btn2">Show Old/New HTML</button>
 
+<div class="ancestors">
+  <div class="d" style="width:500px;">div (great-grandparent)
+    <ul>ul (grandparent)  
+      <li>li (direct parent)
+        <span>span</span>
+      </li>
+    </ul>   
+  </div>
+
+  <div style="width:500px;">div (grandparent)   
+    <p>p (direct parent)
+        <span>span</span>
+      </p> 
+  </div>
+  
+  <p>p</p>
+  <span>span</span>
+  <h2>h2</h2>
+  <h3>h3</h3>
+  <p>p</p>
+  
+</div>
+
 <?php
 //echo "Olá Mundo!";
 ?>
@@ -340,9 +363,67 @@ $(document).ready(function(){
 	
 	
 	//-----Traversing?-----//
+	var anc = false;
+	var des = false;
+	var sib = false;
+	var filtro = false;
 	
+	if(anc)
+	{
+		//Ancestors minato é um ancestor do naruto
+		$("span").parents().css({"color": "blue", "border": "2px solid blue"});
+		$("span").parentsUntil("div").css({"color": "yellow", "border": "2px solid yellow"}); //ja nao apanha o div
+		$("span").parent().css({"color": "red", "border": "2px solid red"});
+	}
 	
+	if(des)
+	{
+		$("div").children().css({"color": "red", "border": "2px solid red"});
+		$("div").children("div.d").css({"color": "blue", "border": "2px solid blue"});
+		//jQuery find() Method
+		//The find() method returns descendant elements of the selected element, 
+		//all the way down to the last descendant.
+		$("div").find("*").append("FILHOS");//estrela seleciona todos
+		
+		//.text substitui .append acrescenta (no fim dentro da tag)
+	}
 	
+	if(sib)
+	{
+		//faz a todos os casos que tem irmaos(nesta caso muda a cor vermelha dos div de fora e dos de dentro)
+		$("div").siblings().css({"color": "red", "border": "2px solid red"});
+		$("div").siblings("p").css({"color": "blue", "border": "2px solid blue"});
+		$("h2").next().css({"color": "yellow", "border": "2px solid yellow"});
+		$("h2").nextAll().append("A seguir ao h2");
+		$("p").nextUntil("h3").append("A partir de p ate h3");//nao inclui o p nem o h3
+		
+		/*		jQuery prev(), prevAll() & prevUntil() Methods
+		The prev(), prevAll() and prevUntil() methods work just like the methods above 
+		but with reverse functionality: they return previous sibling elements 
+		(traverse backwards along sibling elements in the DOM tree, instead of forward).*/
+		
+		//basicamente o prev faz o mesmo que o next mas para tras. easy!
+	}
+	
+	if(filtro)
+	{
+		//filtering
+		//The three most basic filtering methods are first(), last() and eq(), 
+		//which allow you to select a specific element based on its position in a 
+		//group of elements.
+		$("body p").first().css("background-color", "yellow");
+		$("body p").last().css("background-color", "red");
+		$("body p").eq(3).css("background-color", "blue");//comeca no 0 / se o indice for maior que o numero de elementos simplesmente nao faz nada...
+		
+		//Other filtering methods, like filter() and not() allow you to select 
+		//elements that match, or do not match, a certain criteria.
+		$("p").filter(".t1").append("Filtro para classe t1");
+		//not o oposto do filter
+		$("p").not(".t1").append("Filtro para não classe t1");
+		//lol
+		//http://www.w3schools.com/jquery/jquery_ref_traversing.asp
+	}
+	/*---Fim Traversing---*/
 	
 });
 </script>
